@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual Book E-BUDIHARTANTO &mdash; Tech Agency &amp; LMS Platform</title>
+    <style>
+        :root{
+            --indigo:#6366f1; --indigo-d:#4f46e5; --purple:#a855f7; --bg:#0b0f19;
+            --panel:#0f172a; --panel-2:#111a2e; --border:#1e293b; --text:#e2e8f0;
+            --muted:#94a3b8; --emerald:#10b981; --rose:#f43f5e; --amber:#f59e0b;
+        }
+        *{box-sizing:border-box;margin:0;padding:0}
+        html{scroll-behavior:smooth}
+        body{font-family:'Plus Jakarta Sans','Outfit',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+            background:var(--bg);color:var(--text);line-height:1.7;font-size:16px}
+        a{color:var(--indigo);text-decoration:none}
+        a:hover{text-decoration:underline}
+        code{background:#1e293b;color:#a5b4fc;padding:2px 6px;border-radius:6px;font-size:13px;font-family:ui-monospace,Menlo,Consolas,monospace}
+        pre{background:#0a0f1d;border:1px solid var(--border);border-radius:12px;padding:16px 18px;overflow:auto;margin:12px 0;font-size:13.5px}
+        pre code{background:transparent;padding:0;color:#cbd5e1}
+        .wrap{display:flex;min-height:100vh}
+        /* Sidebar */
+        .sidebar{width:300px;flex-shrink:0;background:var(--panel);border-right:1px solid var(--border);
+            position:sticky;top:0;height:100vh;overflow-y:auto;padding:26px 20px}
+        .brand{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+        .logo{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,var(--indigo),var(--purple));
+            display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:20px;font-family:'Outfit',sans-serif}
+        .brand h1{font-size:17px;color:#fff;font-family:'Outfit',sans-serif;line-height:1.2}
+        .brand span{display:block;font-size:11px;color:var(--muted);font-weight:500;letter-spacing:.3px}
+        .toc-title{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin:24px 0 10px;font-weight:700}
+        .toc a{display:block;padding:7px 12px;border-radius:8px;color:var(--muted);font-size:14px;margin-bottom:2px;border-left:2px solid transparent}
+        .toc a:hover{background:var(--panel-2);color:#fff;text-decoration:none}
+        .toc a.sub{padding-left:26px;font-size:13px}
+        .toc a.active{color:#fff;background:var(--panel-2);border-left-color:var(--indigo)}
+        /* Main */
+        .main{flex:1;min-width:0;padding:0}
+        .hero{background:radial-gradient(1200px 400px at 20% -10%,rgba(99,102,241,.25),transparent),radial-gradient(900px 400px at 90% 0%,rgba(168,85,247,.18),transparent);
+            padding:64px 48px 48px;border-bottom:1px solid var(--border)}
+        .hero .badge{display:inline-flex;align-items:center;gap:8px;background:rgba(99,102,241,.12);border:1px solid rgba(99,102,241,.3);
+            color:#c7d2fe;font-size:12px;font-weight:600;padding:6px 14px;border-radius:999px;margin-bottom:20px}
+        .hero h2{font-size:40px;line-height:1.15;color:#fff;font-family:'Outfit',sans-serif;font-weight:800;margin-bottom:14px}
+        .hero h2 .grad{background:linear-gradient(90deg,var(--indigo),var(--purple),#f472b6);-webkit-background-clip:text;background-clip:text;color:transparent}
+        .hero p{max-width:720px;color:var(--muted);font-size:17px}
+        .content{max-width:980px;margin:0 auto;padding:40px 48px 80px}
+        section{padding-top:34px;margin-top:-10px;scroll-margin-top:20px}
+        h3{font-size:27px;color:#fff;font-family:'Outfit',sans-serif;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+        h4{font-size:19px;color:#fff;margin:26px 0 10px}
+        h5{font-size:15px;color:var(--indigo);margin:18px 0 6px;text-transform:uppercase;letter-spacing:.5px;font-size:12.5px}
+        p{margin:10px 0;color:#cbd5e1}
+        ul,ol{margin:10px 0 10px 22px;color:#cbd5e1}
+        li{margin:6px 0}
+        .card{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:22px 24px;margin:16px 0}
+        .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+        .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+        @media(max-width:780px){.grid2,.grid3{grid-template-columns:1fr}.hero,.content{padding-left:22px;padding-right:22px}.sidebar{display:none}}
+        .pill{display:inline-block;font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px;letter-spacing:.5px;text-transform:uppercase}
+        .pill-admin{background:rgba(244,63,94,.12);color:#fb7185;border:1px solid rgba(244,63,94,.25)}
+        .pill-student{background:rgba(99,102,241,.12);color:#a5b4fc;border:1px solid rgba(99,102,241,.25)}
+        .pill-client{background:rgba(16,185,129,.12);color:#34d399;border:1px solid rgba(16,185,129,.25)}
+        table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px;overflow:hidden;border-radius:12px}
+        th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--border)}
+        th{background:var(--panel-2);color:#fff;font-weight:700;font-size:12.5px;text-transform:uppercase;letter-spacing:.4px}
+        tr:hover td{background:rgba(255,255,255,.02)}
+        .note{background:rgba(99,102,241,.08);border:1px solid rgba(99,102,241,.25);border-left:4px solid var(--indigo);
+            border-radius:10px;padding:14px 18px;margin:16px 0;color:#c7d2fe;font-size:14.5px}
+        .warn{background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.3);border-left:4px solid var(--amber);
+            border-radius:10px;padding:14px 18px;margin:16px 0;color:#fde68a;font-size:14.5px}
+        .danger{background:rgba(244,63,94,.08);border:1px solid rgba(244,63,94,.3);border-left:4px solid var(--rose);
+            border-radius:10px;padding:14px 18px;margin:16px 0;color:#fecdd3;font-size:14.5px}
+        .step{display:flex;gap:14px;margin:10px 0;align-items:flex-start}
+        .step .n{flex-shrink:0;width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--indigo),var(--purple));
+            color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:14px}
+        .cred{font-family:ui-monospace,Menlo,Consolas,monospace;background:#0a0f1d;border:1px dashed var(--border);
+            border-radius:12px;padding:16px 18px;margin:8px 0}
+        .cred .row{display:flex;justify-content:space-between;gap:14px;padding:5px 0;border-bottom:1px dotted #1e293b}
+        .cred .row:last-child{border-bottom:none}
+        .cred .k{color:var(--muted)}
+        .cred .v{color:#fff;font-weight:600}
+        .footer{border-top:1px solid var(--border);padding:30px 48px;color:var(--muted);font-size:13px;text-align:center}
+        .toc-toggle{display:none}
+        @media(max-width:780px){.toc-toggle{display:block;margin-bottom:18px;background:var(--panel);border:1px solid var(--border);color:#fff;padding:10px 14px;border-radius:10px;width:100%;text-align:left;cursor:pointer;font-size:14px}}
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="logo">B</div>
+            <div>
+                <h1>Budi Hartanto</h1>
+                <span>Tech Agency &amp; LMS Platform</span>
+            </div>
+        </div>
+        <div class="toc-title">Daftar Isi</div>
+        <nav class="toc">
+            <a href="#pendahuluan">1. Pendahuluan</a>
+            <a href="#fitur">2. Fitur Utama Platform</a>
+            <a href="#role">3. Peran Pengguna (Role)</a>
+            <a href="#akses" class="sub">3.1 Akses Email &amp; Kata Sandi</a>
+            <a href="#instalasi">4. Instalasi &amp; Setup</a>
+            <a href="#struktur">5. Struktur Aplikasi</a>
+            <a href="#halaman">6. Panduan Halaman Publik</a>
+            <a href="#auth">7. Autentikasi (Masuk &amp; Daftar)</a>
+            <a href="#admin">8. Panel Admin (Dosen/Pengajar)</a>
+            <a href="#student">9. Dashboard Siswa (LMS)</a>
+            <a href="#client">10. Dashboard Klien (Tracker)</a>
+            <a href="#database">11. Struktur Database</a>
+            <a href="#routing">12. Daftar Route (URL)</a>
+            <a href="#faq">13. FAQ &amp; Troubleshooting</a>
+        </nav>
+    </aside>
+
+    <!-- MAIN -->
+    <div class="main">
+        <header class="hero">
+            <div class="badge"><span style="width:8px;height:8px;border-radius:50%;background:#818cf8;display:inline-block"></span> Dokumentasi Resmi &middot; Versi Laravel 13</div>
+            <h2>Manual Book <span class="grad">E-BUDIHARTANTO</span><br/>Platform Agensi Teknologi &amp; LMS</h2>
+            <p>Panduan lengkap penggunaan aplikasi Budi Hartanto Platform &mdash; mencakup akses login (email &amp; kata sandi), peran pengguna, dashboard admin, sistem pembelajaran (LMS), pelacak proyek klien, struktur database, dan panduan instalasi.</p>
+        </header>
+
+        <div class="content">
+            <button class="toc-toggle" onclick="document.querySelector('.sidebar').scrollIntoView()">&#9776; Lihat Daftar Isi</button>
+
+            <!-- 1 PENDAHULUAN -->
+            <section id="pendahuluan">
+                <h3>1. Pendahuluan</h3>
+                <p><strong>E-BUDIHARTANTO</strong> (Budi Hartanto Platform) adalah sebuah aplikasi web berbasis <strong>Laravel 13 (PHP 8.3)</strong> yang menggabungkan dua layanan utama dalam satu ekosistem:</p>
+                <ul>
+                    <li><strong>Tech Agency</strong> &mdash; jasa pengembangan perangkat lunak (aplikasi web/sistem dan aplikasi mobile) beserta pelacakan proyek untuk klien.</li>
+                    <li><strong>LMS (Learning Management System)</strong> &mdash; sistem kursus pemrograman online dengan video pembelajaran, modul materi, dan pelacakan progres untuk siswa.</li>
+                </ul>
+                <p>Aplikasi ini dibangun dengan antarmuka modern (Tailwind CSS v4, Alpine.js, AOS animations) dan mendukung tiga jenis pengguna berbeda: <span class="pill pill-admin">Admin</span> <span class="pill pill-student">Student</span> <span class="pill pill-client">Client</span>.</p>
+                <div class="note">Manual book ini disusun berdasarkan kode sumber aktual aplikasi (<code>routes/web.php</code>, controller, model, view, dan <code>DatabaseSeeder</code>) sehingga seluruh informasi akurat dan dapat diandalkan.</div>
+            </section>
+
+            <!-- 2 FITUR -->
+            <section id="fitur">
+                <h3>2. Fitur Utama Platform</h3>
+                <div class="grid3">
+                    <div class="card">
+                        <h4 style="margin-top:0">Portofolio</h4>
+                        <p>Galeri proyek nyata (web/sistem &amp; mobile) dengan filter kategori, badge teknologi, dan deskripsi production-grade.</p>
+                    </div>
+                    <div class="card">
+                        <h4 style="margin-top:0">Layanan Agensi</h4>
+                        <p>Paket jasa pengembangan dengan harga transparan, daftar fitur, dan tombol konsultasi.</p>
+                    </div>
+                    <div class="card">
+                        <h4 style="margin-top:0">LMS Kursus</h4>
+                        <p>Kelas pemrograman dengan pemutar video, daftar materi, dan progres belajar.</p>
+                    </div>
+                    <div class="card">
+                        <h4 style="margin-top:0">Pelacak Proyek</h4>
+                        <p>Status proyek real-time (Pending &rarr; Designing &rarr; Developing &rarr; Completed) untuk klien.</p>
+                    </div>
+                    <div class="card">
+                        <h4 style="margin-top:0">Panel Admin</h4>
+                        <p>Kelola order, ubah status proyek &amp; pembayaran, pantau metrik platform.</p>
+                    </div>
+                    <div class="card">
+                        <h4 style="margin-top:0">Autentikasi</h4>
+                        <p>Login, register multi-peran, "ingat saya", dan proteksi route berbasis role.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3 ROLE -->
+            <section id="role">
+                <h3>3. Peran Pengguna (Role)</h3>
+                <p>Setiap akun memiliki salah satu dari tiga peran yang ditentukan pada saat registrasi (kecuali Admin yang dibuat via seeder). Peran mengatur dashboard dan menu yang dapat diakses.</p>
+                <table>
+                    <thead><tr><th>Peran</th><th>Label Tampilan</th><th>Akses Utama</th><th>Dibuat Melalui</th></tr></thead>
+                    <tbody>
+                        <tr><td><span class="pill pill-admin">admin</span></td><td>Dosen / Pengajar</td><td>Panel admin, kelola order &amp; status</td><td>Seeder (otomatis)</td></tr>
+                        <tr><td><span class="pill pill-student">student</span></td><td>Siswa / Student</td><td>Dashboard LMS, akses kelas &amp; video</td><td>Form register</td></tr>
+                        <tr><td><span class="pill pill-client">client</span></td><td>Klien / Client</td><td>Dashboard pelacak proyek agensi</td><td>Form register</td></tr>
+                    </tbody>
+                </table>
+                <div class="note">Catatan: Form registrasi publik <strong>hanya</strong> menyediakan pilihan <code>student</code> dan <code>client</code>. Peran <code>admin</code> tidak dapat dibuat dari register &mdash; sudah disiapkan melalui <code>DatabaseSeeder</code>.</div>
+
+                <h4 id="akses" style="margin-top:30px">3.1 Akses Email &amp; Kata Sandi (Login)</h4>
+                <p>Berikut adalah akun bawaan (default) yang sudah tersedia setelah menjalankan seeder database. Gunakan salah satu akun di bawah ini untuk masuk ke sistem melalui halaman <code>/login</code>.</p>
+
+                <div class="grid3">
+                    <div class="card">
+                        <h5 style="margin-top:0">Admin &mdash; Pengajar</h5>
+                        <div class="cred">
+                            <div class="row"><span class="k">Nama</span><span class="v">Budi Hartanto</span></div>
+                            <div class="row"><span class="k">Email</span><span class="v">admin@budihartanto.com</span></div>
+                            <div class="row"><span class="k">Kata Sandi</span><span class="v">password</span></div>
+                            <div class="row"><span class="k">Role</span><span class="v">admin</span></div>
+                        </div>
+                        <a href="/login" class="pill pill-admin">Masuk sebagai Admin</a>
+                    </div>
+                    <div class="card">
+                        <h5 style="margin-top:0">Student &mdash; Siswa</h5>
+                        <div class="cred">
+                            <div class="row"><span class="k">Nama</span><span class="v">Eko Susilo</span></div>
+                            <div class="row"><span class="k">Email</span><span class="v">student@example.com</span></div>
+                            <div class="row"><span class="k">Kata Sandi</span><span class="v">password</span></div>
+                            <div class="row"><span class="k">Role</span><span class="v">student</span></div>
+                        </div>
+                        <a href="/login" class="pill pill-student">Masuk sebagai Student</a>
+                    </div>
+                    <div class="card">
+                        <h5 style="margin-top:0">Client &mdash; Klien</h5>
+                        <div class="cred">
+                            <div class="row"><span class="k">Nama</span><span class="v">PT. Sahabat Sejahtera (Hendra)</span></div>
+                            <div class="row"><span class="k">Email</span><span class="v">client@example.com</span></div>
+                            <div class="row"><span class="k">Kata Sandi</span><span class="v">password</span></div>
+                            <div class="row"><span class="k">Role</span><span class="v">client</span></div>
+                        </div>
+                        <a href="/login" class="pill pill-client">Masuk sebagai Client</a>
+                    </div>
+                </div>
+                <div class="danger"><strong>Penting &mdash; Keamanan:</strong> Seluruh akun di atas menggunakan kata sandi <code>password</code>. Untuk lingkungan produksi, segera ubah kata sandi dan jangan gunakan kredensial default. Kata sandi disimpan terenkripsi menggunakan Bcrypt (rounds 12) melalui fitur <code>Hasher::make()</code> Laravel.</div>
+            </section>
+
+            <!-- 4 INSTALASI -->
+            <section id="instalasi">
+                <h3>4. Instalasi &amp; Setup</h3>
+                <p>Aplikasi dijalankan di atas <strong>MAMP</strong> (MySQL port <code>8889</code>) dengan PHP 8.3. Berikut langkah instalasi lengkap:</p>
+                <h4>4.1 Prasyarat</h4>
+                <ul>
+                    <li>PHP &ge; 8.3, Composer, Node.js &amp; npm</li>
+                    <li>MAMP (MySQL di <code>127.0.0.1:8889</code>, user <code>root</code> / pass <code>root</code>)</li>
+                    <li>Database MySQL bernama <code>e_budihartanto</code></li>
+                </ul>
+                <h4>4.2 Langkah Instalasi</h4>
+                <div class="step"><span class="n">1</span><div>Install dependensi PHP &amp; JS:<br/><pre><code>composer install
+npm install</code></pre></div></div>
+                <div class="step"><span class="n">2</span><div>Salin file environment &amp; buat APP_KEY:<br/><pre><code>cp .env.example .env
+php artisan key:generate</code></pre></div></div>
+                <div class="step"><span class="n">3</span><div>Pastikan konfigurasi database di <code>.env</code> sesuai:<br/><pre><code>DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=8889
+DB_DATABASE=e_budihartanto
+DB_USERNAME=root
+DB_PASSWORD=root</code></pre></div></div>
+                <div class="step"><span class="n">4</span><div>Jalankan migrasi &amp; isi data awal (termasuk akun login di atas):<br/><pre><code>php artisan migrate --seed</code></pre></div></div>
+                <div class="step"><span class="n">5</span><div>Build aset frontend &amp; jalankan server:<br/><pre><code>npm run build
+php artisan serve --port=8000</code></pre>Akses <code>http://localhost:8000</code>. (Saat menggunakan MAMP, arahkan ke document root <code>public/</code>.)</div></div>
+                <div class="warn">Jika tampilan terlihat tanpa styling, jalankan <code>npm run dev</code> atau <code>npm run build</code> karena aset di-load melalui Vite manifest.</div>
+            </section>
+
+            <!-- 5 STRUKTUR -->
+            <section id="struktur">
+                <h3>5. Struktur Aplikasi</h3>
+                <p>Ringkasan direktori dan berkas penting dalam proyek ini:</p>
+                <table>
+                    <thead><tr><th>Path</th><th>Keterangan</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>routes/web.php</code></td><td>Definisi semua route web &amp; pengelompokan berdasarkan middleware auth/role.</td></tr>
+                        <tr><td><code>app/Models/</code></td><td>Model Eloquent: User, Course, Lesson, WebService, Order, Portfolio.</td></tr>
+                        <tr><td><code>app/Http/Controllers/</code></td><td>Controller: Auth (Login/Register), Dashboard, Admin, Student, Client.</td></tr>
+                        <tr><td><code>app/Http/Middleware/RoleMiddleware.php</code></td><td>Middleware <code>role</code> untuk membatasi akses route berdasarkan peran.</td></tr>
+                        <tr><td><code>resources/views/</code></td><td>Blade template: layouts, auth, welcome, admin/student/client dashboard.</td></tr>
+                        <tr><td><code>database/migrations/</code></td><td>Skema tabel (users, courses, lessons, web_services, orders, portfolios).</td></tr>
+                        <tr><td><code>database/seeders/DatabaseSeeder.php</code></td><td>Data demo: user login, portofolio, layanan, kursus, order.</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- 6 HALAMAN PUBLIK -->
+            <section id="halaman">
+                <h3>6. Panduan Halaman Publik</h3>
+                <p>Halaman beranda (<code>/</code>) dapat diakses tanpa login dan terdiri dari beberapa section:</p>
+                <ul>
+                    <li><strong>Hero</strong> &mdash; pengantar platform dengan tombol "Lihat Portofolio" &amp; "Mulai Belajar".</li>
+                    <li><strong>Portofolio</strong> (<code>#portfolio</code>) &mdash; grid proyek dengan filter <em>Semua / Web-Sistem / Mobile</em> (Alpine.js).</li>
+                    <li><strong>Layanan</strong> (<code>#services</code>) &mdash; paket agensi (Web, Mobile, WordPress) beserta harga &amp; fitur.</li>
+                    <li><strong>Kursus LMS</strong> (<code>#courses</code>) &mdash; daftar kelas; tombol "Akses Kelas" (jika sudah login) atau "Daftar Kelas".</li>
+                    <li><strong>Kontak</strong> (<code>#contact</code>) &mdash; form konsultasi (simulasi alert).</li>
+                </ul>
+            </section>
+
+            <!-- 7 AUTH -->
+            <section id="auth">
+                <h3>7. Autentikasi (Masuk &amp; Daftar)</h3>
+                <h4>7.1 Masuk (Login)</h4>
+                <ol>
+                    <li>Buka <code>/login</code> (atau klik "Masuk" di navbar).</li>
+                    <li>Masukkan <strong>Email</strong> dan <strong>Kata Sandi</strong> (lihat bagian 3.1).</li>
+                    <li>Centang "Ingat Saya" (opsional) untuk sesi tahan lama.</li>
+                    <li>Klik <strong>Masuk Sekarang</strong>. Sistem akan mengarahkan ke dashboard sesuai peran.</li>
+                </ol>
+                <div class="warn">Jika kredensial salah, akan muncul pesan: <em>"Kredensial yang diberikan tidak cocok dengan catatan kami."</em> Pastikan email &amp; kata sandi tepat.</div>
+                <h4>7.2 Daftar (Register)</h4>
+                <ol>
+                    <li>Buka <code>/register</code> &rarr; isi Nama, Email, Pilih Peran, Kata Sandi (min. 8 karakter), Konfirmasi.</li>
+                    <li>Peran hanya bisa <code>student</code> atau <code>client</code>.</li>
+                    <li>Setelah berhasil, otomatis login &amp; diarahkan ke dashboard masing-masing.</li>
+                </ol>
+                <h4>7.3 Keluar (Logout)</h4>
+                <p>Klik <strong>Logout</strong> pada navbar. Sesi diakhiri dan Anda dikembalikan ke beranda.</p>
+            </section>
+
+            <!-- 8 ADMIN -->
+            <section id="admin">
+                <h3>8. Panel Admin (Dosen / Pengajar)</h3>
+                <p>Akses: <code>/admin/dashboard</code> (hanya role <span class="pill pill-admin">admin</span>). Menampilkan metrik dan manajemen proyek.</p>
+                <h4>8.1 Kartu Metrik</h4>
+                <div class="grid3">
+                    <div class="card"><h5 style="margin-top:0">Total Siswa</h5><p>Jumlah user dengan role <code>student</code>.</p></div>
+                    <div class="card"><h5 style="margin-top:0">Total Klien</h5><p>Jumlah user dengan role <code>client</code>.</p></div>
+                    <div class="card"><h5 style="margin-top:0">Pendapatan (Paid)</h5><p>Total <code>total_amount</code> dari order berstatus <code>paid</code>.</p></div>
+                </div>
+                <h4>8.2 Tab: Pelacakan Proyek Klien</h4>
+                <p>Tabel order berisi Nomor Invoice, Klien, Layanan, Total Biaya, dan pemilih status. Admin dapat mengubah:</p>
+                <ul>
+                    <li><strong>Status Proyek:</strong> <code>pending</code> &rarr; <code>designing</code> &rarr; <code>developing</code> &rarr; <code>completed</code></li>
+                    <li><strong>Status Pembayaran:</strong> <code>pending</code>, <code>paid</code>, <code>cancelled</code></li>
+                </ul>
+                <p>Klik <strong>Update</strong> untuk menyimpan perubahan (mengirim POST ke <code>/admin/orders/{id}/status</code>).</p>
+                <h4>8.3 Tab: Daftar Kursus LMS</h4>
+                <p>Grid semua kursus beserta jumlah pelajaran dan harga &mdash; referensi materi pembelajaran siswa.</p>
+            </section>
+
+            <!-- 9 STUDENT -->
+            <section id="student">
+                <h3>9. Dashboard Siswa (LMS)</h3>
+                <p>Akses: <code>/student/dashboard</code> (hanya role <span class="pill pill-student">student</span>). Menampilkan grid kursus yang tersedia.</p>
+                <h4>9.1 Mengakses Kelas</h4>
+                <ol>
+                    <li>Klik kartu kursus &rarr; tombol <strong>Masuk Kelas</strong>.</li>
+                    <li>Diarahkan ke <code>/student/courses/{id}</code> (player video + materi).</li>
+                </ol>
+                <h4>9.2 Halaman Belajar (Course View)</h4>
+                <ul>
+                    <li><strong>Pemutar Video</strong> HTML5 di sisi kiri dengan judul &amp; isi materi aktif.</li>
+                    <li><strong>Daftar Materi</strong> di sisi kanan &mdash; klik untuk berganti pelajaran (Alpine.js, tanpa reload).</li>
+                    <li>Setiap materi menampilkan nomor urut, judul, durasi (menit), dan konten.</li>
+                </ul>
+                <div class="note">Progres ditandai dengan materi yang sedang aktif (highlight indigo). Video otomatis dimuat ulang saat mengganti materi.</div>
+            </section>
+
+            <!-- 10 CLIENT -->
+            <section id="client">
+                <h3>10. Dashboard Klien (Pelacak Proyek)</h3>
+                <p>Akses: <code>/client/dashboard</code> (hanya role <span class="pill pill-client">client</span>). Menampilkan order milik klien yang login.</p>
+                <h4>10.1 Kartu Proyek</h4>
+                <p>Setiap order menampilkan: Nomor Invoice, Layanan Dipesan, Nilai Kontrak, dan badge Pembayaran (Paid / Pending / Cancelled).</p>
+                <h4>10.2 Step-Wizard Progres</h4>
+                <p>Visualisasi 4 tahap status proyek secara real-time:</p>
+                <table>
+                    <thead><tr><th>Langkah</th><th>Label</th><th>Status (EN)</th></tr></thead>
+                    <tbody>
+                        <tr><td>1</td><td>Order Diterima</td><td><code>pending</code></td></tr>
+                        <tr><td>2</td><td>Desain UI/UX</td><td><code>designing</code></td></tr>
+                        <tr><td>3</td><td>Pengembangan</td><td><code>developing</code></td></tr>
+                        <tr><td>4</td><td>Selesai &amp; Rilis</td><td><code>completed</code></td></tr>
+                    </tbody>
+                </table>
+                <p>Tahap yang sudah dilewati ditandai centang hijau; tahap aktif menyala indigo; garis progres terisi sesuai persentase.</p>
+            </section>
+
+            <!-- 11 DATABASE -->
+            <section id="database">
+                <h3>11. Struktur Database</h3>
+                <p>Database <code>e_budihartanto</code> (MySQL) terdiri dari 6 tabel bisnis utama:</p>
+                <table>
+                    <thead><tr><th>Tabel</th><th>Field Utama</th><th>Relasi</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>users</code></td><td>id, name, email (unique), password, <strong>role</strong> (admin/student/client), remember_token</td><td>&mdash;</td></tr>
+                        <tr><td><code>courses</code></td><td>id, title, slug (unique), description, price, thumbnail_url</td><td>hasMany lessons</td></tr>
+                        <tr><td><code>lessons</code></td><td>id, course_id (FK), title, video_url, content, duration_minutes, order_index</td><td>belongsTo course</td></tr>
+                        <tr><td><code>web_services</code></td><td>id, package_name, features (JSON array), base_price</td><td>hasMany orders</td></tr>
+                        <tr><td><code>orders</code></td><td>id, user_id (FK), web_services_id (FK), invoice_number (unique), total_amount, payment_status, project_status</td><td>belongsTo user &amp; webService</td></tr>
+                        <tr><td><code>portfolios</code></td><td>id, title, category (web/mobile), tech_stack (JSON), platform, description, image_url, order_index</td><td>&mdash;</td></tr>
+                    </tbody>
+                </table>
+                <div class="note">Tabel bawaan Laravel juga ada: <code>password_reset_tokens</code>, <code>sessions</code>, <code>cache</code>, <code>jobs</code>. Kolom <code>features</code> &amp; <code>tech_stack</code> disimpan sebagai JSON/array dan di-cast otomatis oleh model Eloquent.</div>
+            </section>
+
+            <!-- 12 ROUTING -->
+            <section id="routing">
+                <h3>12. Daftar Route (URL)</h3>
+                <table>
+                    <thead><tr><th>Method</th><th>URL</th><th>Nama Route</th><th>Akses</th><th>Controller</th></tr></thead>
+                    <tbody>
+                        <tr><td>GET</td><td><code>/</code></td><td><code>home</code></td><td>Publik</td><td>Closure (welcome)</td></tr>
+                        <tr><td>GET</td><td><code>/login</code></td><td><code>login</code></td><td>Guest</td><td>LoginController</td></tr>
+                        <tr><td>POST</td><td><code>/login</code></td><td>&mdash;</td><td>Guest</td><td>LoginController@login</td></tr>
+                        <tr><td>GET</td><td><code>/register</code></td><td><code>register</code></td><td>Guest</td><td>RegisterController</td></tr>
+                        <tr><td>POST</td><td><code>/register</code></td><td>&mdash;</td><td>Guest</td><td>RegisterController@register</td></tr>
+                        <tr><td>POST</td><td><code>/logout</code></td><td><code>logout</code></td><td>Auth</td><td>LoginController@logout</td></tr>
+                        <tr><td>GET</td><td><code>/dashboard</code></td><td><code>dashboard</code></td><td>Auth</td><td>DashboardController (redirect by role)</td></tr>
+                        <tr><td>GET</td><td><code>/admin/dashboard</code></td><td><code>admin.dashboard</code></td><td>Admin</td><td>AdminController@index</td></tr>
+                        <tr><td>POST</td><td><code>/admin/orders/{order}/status</code></td><td><code>admin.orders.update-status</code></td><td>Admin</td><td>AdminController@updateOrderStatus</td></tr>
+                        <tr><td>GET</td><td><code>/student/dashboard</code></td><td><code>student.dashboard</code></td><td>Student</td><td>StudentController@index</td></tr>
+                        <tr><td>GET</td><td><code>/student/courses/{course}</code></td><td><code>student.courses.show</code></td><td>Student</td><td>StudentController@showCourse</td></tr>
+                        <tr><td>GET</td><td><code>/client/dashboard</code></td><td><code>client.dashboard</code></td><td>Client</td><td>ClientController@index</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- 13 FAQ -->
+            <section id="faq">
+                <h3>13. FAQ &amp; Troubleshooting</h3>
+                <h4>T: Saya lupa kata sandi, bagaimana reset?</h4>
+                <p>Fitur reset melalui email belum aktif (mailer disetel <code>log</code>). Untuk keperluan development, ubah kata sandi lewat <code>tinker</code>: <code>User::where('email','admin@budihartanto.com')->update(['password'=>Hash::make('password')]);</code></p>
+                <h4>T: Masuk dengan benar tapi dikembalikan ke beranda?</h4>
+                <p>Pastikan session &amp; cookie berjalan (driver <code>database</code> &mdash; tabel <code>sessions</code> harus ada via migrasi). Jalankan <code>php artisan migrate</code> bila tabel belum dibuat.</p>
+                <h4>T: Role salah saat coba akses dashboard?</h4>
+                <p>Middleware <code>role</code> akan mengalihkan ke dashboard peran Anda sendiri. Pastikan login dengan akun sesuai peran (lihat 3.1).</p>
+                <h4>T: Tampilan berantakan / tanpa style?</h4>
+                <p>Jalankan <code>npm run build</code> (atau <code>npm run dev</code>). Aset dimuat via Vite manifest dari <code>resources/</code>.</p>
+                <h4>T: Bagaimana menambah akun Admin baru?</h4>
+                <p>Gunakan <code>php artisan tinker</code>: <code>User::create(['name'=>'...','email'=>'...','password'=>Hash::make('password'),'role'=>'admin']);</code></p>
+                <h4>T: Email &amp; kata sandi default untuk demo?</h4>
+                <p>admin@budihartanto.com / student@example.com / client@example.com &mdash; semua dengan kata sandi <code>password</code> (lihat bagian 3.1).</p>
+            </section>
+
+        </div>
+
+        <footer class="footer">
+            &copy; 2026 Budi Hartanto Platform &mdash; Manual Book E-BUDIHARTANTO. Dibuat berdasarkan kode sumber aplikasi Laravel 13.
+        </footer>
+    </div>
+</div>
+
+<script>
+    // Highlight active TOC link on scroll
+    const links = Array.from(document.querySelectorAll('.toc a'));
+    const sections = links.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+    const byId = {};
+    links.forEach(a => byId[a.getAttribute('href').slice(1)] = a);
+    window.addEventListener('scroll', () => {
+        let current = '';
+        sections.forEach(sec => { if (window.scrollY >= sec.offsetTop - 80) current = sec.id; });
+        links.forEach(a => a.classList.remove('active'));
+        if (current && byId[current]) byId[current].classList.add('active');
+    });
+</script>
+</body>
+</html>
+
+
